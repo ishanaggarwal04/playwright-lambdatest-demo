@@ -19,11 +19,17 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Verify Python Installation
+      - name: Install uv
+        run: pip install uv
+
+      - name: Install Project Dependencies
+        run: uv sync
+
+      - name: Verify Python
         run: python --version
 
-      - name: Verify Pip Installation
-        run: pip --version
+      - name: Verify uv
+        run: uv --version
 
-      - name: Display Repository Files
-        run: ls -la
+      - name: Verify Pytest
+        run: uv run pytest --version

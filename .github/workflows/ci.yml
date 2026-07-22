@@ -33,3 +33,6 @@ jobs:
 
       - name: Verify Pytest
         run: uv run pytest --version
+
+      - name: Run Pytest
+        run: uv run pytest -v

@@ -35,4 +35,7 @@ jobs:
         run: uv run pytest --version
 
       - name: Run Pytest
+        env:
+          LT_USERNAME: ${{ secrets.LT_USERNAME }}
+          LT_ACCESS_KEY: ${{ secrets.LT_ACCESS_KEY }}
         run: uv run pytest -v

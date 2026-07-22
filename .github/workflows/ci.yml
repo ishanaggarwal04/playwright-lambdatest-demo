@@ -1,4 +1,4 @@
-name: My First GitHub Actions Workflow
+name: Python CI
 
 on:
   push:
@@ -6,19 +6,24 @@ on:
       - main
 
 jobs:
-  hello-world:
-    name: Hello World Job
+  setup-python:
+    name: Setup Python Environment
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Print Hello Message
-        run: echo "Hello from GitHub Actions!"
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
 
-      - name: Display Current Working Directory
-        run: pwd
+      - name: Verify Python Installation
+        run: python --version
 
-      - name: List Repository Files
+      - name: Verify Pip Installation
+        run: pip --version
+
+      - name: Display Repository Files
         run: ls -la

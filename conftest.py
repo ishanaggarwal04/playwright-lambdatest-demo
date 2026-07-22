@@ -38,7 +38,7 @@ def page(request):
         "browserName": lt_browser,
         "browserVersion": "latest",
         "LT:Options": {
-            "platform": "Windows 10",
+            "platform": "Windows 11",
             "build": "Playwright Demo Build",
             "project": "Playwright Demo",
             "name": request.node.nodeid,

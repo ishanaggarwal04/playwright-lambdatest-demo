@@ -32,6 +32,8 @@ def page(request):
     playwright_browser = request.param
     lt_browser = BROWSERS[playwright_browser]
 
+    tunnel_name = os.getenv("LT_TUNNEL_NAME")
+
     capabilities = {
         "browserName": lt_browser,
         "browserVersion": "latest",
@@ -46,6 +48,7 @@ def page(request):
             "network": True,
             "console": True,
             "tunnel": True,
+            "tunnelName": tunnel_name,
         },
     }
 

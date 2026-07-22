@@ -10,26 +10,29 @@ jobs:
     name: Playwright Tests
     runs-on: ubuntu-latest
 
+    env:
+      LT_TUNNEL_NAME: github-${{ github.run_id }}
+
     steps:
-      # Step 1: Download repository onto the runner
+      # Checkout repository
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # Step 2: Install Python
+      # Setup Python
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      # Step 3: Install uv
+      # Install uv
       - name: Install uv
         run: pip install uv
 
-      # Step 4: Install project dependencies
+      # Install project dependencies
       - name: Install Project Dependencies
         run: uv sync
 
-      # Step 5: Verify installations
+      # Verify installation
       - name: Verify Python
         run: python --version
 
@@ -39,23 +42,35 @@ jobs:
       - name: Verify Pytest
         run: uv run pytest --version
 
-      # Step 6: Start the local web server
+      # Start the local website
       - name: Start Local Web Server
         run: |
           python -m http.server 3000 &
-          echo "Server started in background."
+          echo "Local server started."
 
-      # Step 7: Wait for the server to start
+      # Wait for the server
       - name: Wait for Server
         run: sleep 5
 
-      # Step 8: Verify the server is reachable
+      # Verify the server
       - name: Verify Server
         run: curl http://localhost:3000
 
-      # Step 9: Run the Playwright tests
+      # Start LambdaTest Tunnel
+      - name: Start LambdaTest Tunnel
+        uses: LambdaTest/LambdaTest-tunnel-action@v2
+        with:
+          user: ${{ secrets.LT_USERNAME }}
+          accessKey: ${{ secrets.LT_ACCESS_KEY }}
+          tunnelName: ${{ env.LT_TUNNEL_NAME }}
+
+      - name: Wait for Tunnel
+        run: sleep 10
+
+      # Run Playwright tests
       - name: Run Pytest
         env:
           LT_USERNAME: ${{ secrets.LT_USERNAME }}
           LT_ACCESS_KEY: ${{ secrets.LT_ACCESS_KEY }}
+          LT_TUNNEL_NAME: ${{ env.LT_TUNNEL_NAME }}
         run: uv run pytest -v

@@ -6,25 +6,30 @@ on:
       - main
 
 jobs:
-  setup-python:
-    name: Setup Python Environment
+  playwright-tests:
+    name: Playwright Tests
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Download repository onto the runner
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      # Step 2: Install Python
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
+      # Step 3: Install uv
       - name: Install uv
         run: pip install uv
 
+      # Step 4: Install project dependencies
       - name: Install Project Dependencies
         run: uv sync
 
+      # Step 5: Verify installations
       - name: Verify Python
         run: python --version
 
@@ -34,6 +39,21 @@ jobs:
       - name: Verify Pytest
         run: uv run pytest --version
 
+      # Step 6: Start the local web server
+      - name: Start Local Web Server
+        run: |
+          python -m http.server 3000 &
+          echo "Server started in background."
+
+      # Step 7: Wait for the server to start
+      - name: Wait for Server
+        run: sleep 5
+
+      # Step 8: Verify the server is reachable
+      - name: Verify Server
+        run: curl http://localhost:3000
+
+      # Step 9: Run the Playwright tests
       - name: Run Pytest
         env:
           LT_USERNAME: ${{ secrets.LT_USERNAME }}

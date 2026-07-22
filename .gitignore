@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+.venv/
+
+# Pytest
+.pytest_cache/
+
+# Logs
+*.log
+lt.log
+
+# LambdaTest generated files
+ltcupdate
+
+# OS files
+.DS_Store
+Thumbs.db

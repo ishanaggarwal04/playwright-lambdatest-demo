@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playwright Demo Site</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            background:#f5f5f5;
+            padding:40px;
+        }
+
+        .container{
+            max-width:900px;
+            margin:auto;
+            background:white;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0 0 10px rgba(0,0,0,.15);
+        }
+
+        h1{
+            margin-bottom:20px;
+        }
+
+        section{
+            margin-top:35px;
+            padding-top:20px;
+            border-top:1px solid #ddd;
+        }
+
+        input,select,button{
+            margin-top:10px;
+            margin-bottom:15px;
+            padding:10px;
+            width:100%;
+        }
+
+        button{
+            cursor:pointer;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            margin-top:20px;
+        }
+
+        th,td{
+            border:1px solid #ccc;
+            padding:10px;
+        }
+
+        img{
+            margin-top:20px;
+            width:250px;
+            border-radius:8px;
+        }
+
+        .success{
+            margin-top:15px;
+            color:green;
+            font-weight:bold;
+        }
+
+        nav a{
+            margin-right:15px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1 id="title">Playwright Demo Website</h1>
+
+<nav>
+    <a id="home-link" href="#">Home</a>
+    <a id="about-link" href="#">About</a>
+    <a id="contact-link" href="#">Contact</a>
+</nav>
+
+<section>
+
+<h2>Login Form</h2>
+
+<input
+id="username"
+type="text"
+placeholder="Username">
+
+<input
+id="password"
+type="password"
+placeholder="Password">
+
+<button id="login-btn">
+Login
+</button>
+
+<p id="login-message"></p>
+
+</section>
+
+<section>
+
+<h2>Preferences</h2>
+
+<label>
+
+<input
+id="newsletter"
+type="checkbox">
+
+Subscribe to Newsletter
+
+</label>
+
+<br><br>
+
+<label>
+
+<input
+name="gender"
+value="male"
+type="radio">
+
+Male
+
+</label>
+
+<label>
+
+<input
+name="gender"
+value="female"
+type="radio">
+
+Female
+
+</label>
+
+<br><br>
+
+<select id="country">
+
+<option>India</option>
+<option>USA</option>
+<option>Canada</option>
+<option>Germany</option>
+
+</select>
+
+</section>
+
+<section>
+
+<h2>File Upload</h2>
+
+<input
+id="resume"
+type="file">
+
+</section>
+
+<section>
+
+<h2>Dynamic Counter</h2>
+
+<button id="increment">
+Increase Counter
+</button>
+
+<p>
+
+Current Value:
+
+<span id="counter">
+0
+</span>
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Employee Table</h2>
+
+<table id="employee-table">
+
+<tr>
+<th>Name</th>
+<th>Role</th>
+</tr>
+
+<tr>
+<td>Alice</td>
+<td>QA Engineer</td>
+</tr>
+
+<tr>
+<td>Bob</td>
+<td>Developer</td>
+</tr>
+
+<tr>
+<td>Charlie</td>
+<td>Manager</td>
+</tr>
+
+</table>
+
+</section>
+
+<section>
+
+<h2>Image</h2>
+
+<img
+id="demo-image"
+src="https://picsum.photos/300/180"
+alt="Random Image">
+
+</section>
+
+<section>
+
+<button id="alert-btn">
+Show Alert
+</button>
+
+</section>
+
+</div>
+
+<script>
+
+document
+.getElementById("login-btn")
+.addEventListener("click",function(){
+
+    const username=document.getElementById("username").value;
+    const password=document.getElementById("password").value;
+
+    if(username==="admin" && password==="password123")
+    {
+        document.getElementById("login-message").innerHTML=
+        "Login Successful";
+    }
+    else
+    {
+        document.getElementById("login-message").innerHTML=
+        "Invalid Credentials";
+    }
+
+});
+
+let count=0;
+
+document
+.getElementById("increment")
+.addEventListener("click",function(){
+
+    count++;
+
+    document.getElementById("counter").innerHTML=count;
+
+});
+
+document
+.getElementById("alert-btn")
+.addEventListener("click",function(){
+
+    alert("Playwright Alert!");
+
+});
+
+</script>
+
+</body>
+</html>
